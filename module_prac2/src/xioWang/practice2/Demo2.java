@@ -7,7 +7,7 @@ package xioWang.practice2;
     Employee：这是所有员工总的父类，
         属性：
             员工的姓名,员工的生日月份。
-        方法：getSalary(intmonth)
+        方法：getSalary(int month)
             根据参数月份来确定工资，如果该月员工过生日，则公司会额外奖励100 元。
 
     SalariedEmployee：
@@ -33,10 +33,12 @@ package xioWang.practice2;
 * */
 class Employee{
     private String name;
-    private String birth;
+    private int birth;
 
-    public Employee(){}
-    public Employee(String name, String birth) {
+    public Employee() {
+    }
+
+    public Employee(String name, int birth) {
         this.name = name;
         this.birth = birth;
     }
@@ -49,25 +51,109 @@ class Employee{
         this.name = name;
     }
 
-    public String getBirth() {
+    public int getBirth() {
         return birth;
     }
 
-    public void setBirth(String birth) {
+    public void setBirth(int birth) {
         this.birth = birth;
     }
 
-    public boolean isBirth(String date_month){
-        boolean flag=false;
-        if (this.birth.equalsIgnoreCase(date_month)){
-            flag = true;
+    public boolean getSalary(int month){
+        if (month==this.birth){
+            return true;
+        }else {
+            return false;
         }
-        return flag;
     }
-    public void getSalary(int month){
-
-    }
-
 }
+
+class SalariedEmployee extends Employee{
+    private double month_salary;
+
+    public double getMonth_salary() {
+        return month_salary;
+    }
+
+    public void setMonth_salary(double month_salary) {
+        this.month_salary = month_salary;
+    }
+}
+
+class HourlyEmployee extends Employee{
+    private double hour_salary;
+    private int hours;
+
+    public double getHour_salary() {
+        return hour_salary;
+    }
+
+    public void setHour_salary(double hour_salary) {
+        this.hour_salary = hour_salary;
+    }
+
+    public int getHours() {
+        return hours;
+    }
+
+    public void setHours(int hours) {
+        this.hours = hours;
+    }
+
+    public double monthSalary(){
+        double month_salary = 0;
+        int overtime = this.hours-160;
+        if (overtime>0){
+            month_salary = (overtime*1.5+160)*hour_salary;
+        }else {
+            month_salary = this.hours*hour_salary;
+        }
+        return month_salary;
+    }
+}
+
+class SalesEmployee extends Employee{
+    private double month_sale_number;
+    private double per_rate;
+
+    public double getMonth_sale_number() {
+        return month_sale_number;
+    }
+
+    public void setMonth_sale_number(double month_sale_number) {
+        this.month_sale_number = month_sale_number;
+    }
+
+    public double getPer_rate() {
+        return per_rate;
+    }
+
+    public void setPer_rate(double per_rate) {
+        this.per_rate = per_rate;
+    }
+
+    public double monthSalary(){
+        return month_sale_number*per_rate;
+    }
+}
+
+class BasePlusSalesEmployee extends SalesEmployee{
+    private double base_salary;
+
+    public double getBase_salary() {
+        return base_salary;
+    }
+
+    public void setBase_salary(double base_salary) {
+        this.base_salary = base_salary;
+    }
+
+    @Override
+    public double monthSalary() {
+        return base_salary+super.monthSalary();
+    }
+}
+
+
 public class Demo2 {
 }
