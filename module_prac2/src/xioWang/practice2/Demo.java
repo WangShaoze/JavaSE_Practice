@@ -11,23 +11,58 @@ package xioWang.practice2;
 * */
 
 class Instrument{
-    public void makeSound(){
+    String name;
+    String function;
 
+    public void makeSound(){
+        System.out.println(name+"正在"+function);
     }
 }
 
 class Erhu extends Instrument{
-
+    public Erhu(String name, String function) {
+        this.name = name;
+        this.function = function;
+    }
 }
 class Piano extends Instrument{
-
+    public Piano(String name, String function) {
+        this.name = name;
+        this.function = function;
+    }
 }
 class Violin extends Instrument{
-
+    public Violin(String name, String function) {
+        this.name = name;
+        this.function = function;
+    }
 }
 
 class Musician{
-    public void play(Instrument i){}
+    public String name;
+
+    public Musician(String name) {
+        this.name = name;
+    }
+
+    public void play(Instrument i){
+        System.out.println(name+"，可以弹奏"+i.name+"乐器演奏。");
+        i.makeSound();
+    }
 }
 public class Demo {
+    public static void main(String[] args) {
+        Erhu erhu = new Erhu("二胡", "想起");
+        Piano piano = new Piano("钢琴", "弹奏");
+
+        Violin violin = new Violin("小提琴", "吹响");
+
+        Musician musician_1 = new Musician("xioHua");
+        Musician musician_2 = new Musician("xioLin");
+        Musician musician_3 = new Musician("xioMei");
+
+        musician_1.play(violin);
+        musician_2.play(piano);
+        musician_3.play(erhu);
+    }
 }
